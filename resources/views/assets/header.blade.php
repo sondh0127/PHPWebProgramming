@@ -33,7 +33,7 @@
           @if(\App\User::first())
 
           @else
-          <li><a href="{{ route('register') }}" class="waves-effect waves-light">Join</a></li>
+          <li><a href="{{ route('register') }}" class="waves-effect waves-light">Register Admin</a></li>
           @endif
         </ul>
         @else

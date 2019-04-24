@@ -227,7 +227,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DotenvEditor' => Brotzka\DotenvEditor\DotenvEditorFacade::class,
 
-
     ],
 
 ];

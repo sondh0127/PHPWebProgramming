@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role',
     ];
 
     /**
@@ -34,6 +34,50 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'role' => 'integer',
+        'active' => 'integer',
+        // 'email_verified_at' => 'datetime',
     ];
+
+     /**
+     * @return role
+     */
+    public function role()
+    {
+        return $this->role;
+    }
+
+    public function active()
+    {
+        return $this->active;
+    }
+
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
+
+    public function waiterOrders()
+    {
+        return $this->hasMany(Order::class, 'served_by');
+    }
+
+    public function waiterOrdersToday()
+    {
+        return $this->hasMany(Order::class, 'served_by')
+            ->where('created_at', 'like',
+                \Carbon\Carbon::today()->format('Y-m-d') . '%');
+    }
+
+    public function kitchenOrders()
+    {
+        return $this->hasMany(Order::class, 'kitchen_id');
+    }
+
+    public function kitchenOrderToday()
+    {
+        return $this->hasMany(Order::class, 'kitchen_id')
+            ->where('created_at', 'like',
+                \Carbon\Carbon::today()->format('Y-m-d') . '%');
+    }
 }

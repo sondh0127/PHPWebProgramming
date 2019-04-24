@@ -3,7 +3,12 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-
+use App\Http\Middleware\ActiveUser;
+use App\Http\Middleware\AdminRoleCheck;
+use App\Http\Middleware\InActiveUser;
+use App\Http\Middleware\KitchenRoleCheck;
+use App\Http\Middleware\ManagerRoleCheck;
+use App\Http\Middleware\WaiterRoleCheck;
 class Kernel extends HttpKernel
 {
     /**
@@ -60,6 +65,13 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+        'active.user' => ActiveUser::class,
+        'inactive.user'=>InActiveUser::class,
+        'admin'=>AdminRoleCheck::class,
+        'manager'=>ManagerRoleCheck::class,
+        'kitchen'=>KitchenRoleCheck::class,
+        'waiter'=>WaiterRoleCheck::class,
     ];
 
     /**
