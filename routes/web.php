@@ -11,7 +11,7 @@
 |
  */
 
-Route::get('/', 'HomeController@welcome');
+Route::get('/', 'HomeController@welcome');;
 
 // Install
 Route::get('/install', 'SettingsController@install');

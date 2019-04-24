@@ -67,7 +67,7 @@ class HomeController extends Controller
     public function profileEdit()
     {
         $url = auth()->user()->image != "" | null ?
-            Storage::disk('s3')->url(auth()->user()->image) : url('/img_assets/avater.png');
+            Storage::disk('s3')->url(auth()->user()->image) : asset('img_assets/avatar.png');
         return view('user.profile.edit-profile', [
             'url' => $url,
         ]);
