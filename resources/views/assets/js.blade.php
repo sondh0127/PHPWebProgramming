@@ -1,5 +1,5 @@
 <script>
-  var resizefunc = [];
+var resizefunc = [];
 </script>
 
 <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
@@ -50,17 +50,14 @@
 
 {{--Pusher Setup--}}
 <script>
-  // Enable pusher logging - don't include this in production
-  Pusher.logToConsole = true;
+// Enable pusher logging - don't include this in production
+Pusher.logToConsole = true;
 
-  var pusher = new Pusher('{{config('
-    broadcasting.connections.pusher.key ')}}', {
-      cluster: '{{config('
-      broadcasting.connections.pusher.options.cluster ')}}',
-      encrypted: {
-        {
-          config('broadcasting.connections.pusher.options.encrypted')
-        }
-      }
-    });
+var pusher = new Pusher('{{config('
+  broadcasting.connections.pusher.key ')}}', {
+    cluster: '{{config('
+    broadcasting.connections.pusher.options.cluster ')}}',
+    encrypted: '{{config('
+    broadcasting.connections.pusher.options.encrypted ')}}'
+  });
 </script>

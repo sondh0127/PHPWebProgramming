@@ -18,7 +18,7 @@ class SettingsController extends Controller
         if (config('restaurant.hasInstall') == 0) {
             return view('install');
         } else {
-            return redirect()->to('/install-success');
+            return redirect()->route('installed');
         }
     }
 
@@ -31,7 +31,7 @@ class SettingsController extends Controller
         if (config('restaurant.hasInstall') == 1) {
             return view('install-success');
         } else {
-            return redirect()->to('/install');
+            return redirect()->route('install');
         }
     }
 
@@ -89,17 +89,17 @@ class SettingsController extends Controller
     {
         $env = new DotenvEditor();
         $env->changeEnv([
-            'APP_URL' => request()->getHttpHost(),
+            'APP_URL' =>  'http://' . $request->getHost(),
             'DB_HOST' => $request->get('host'),
             'DB_PORT' => $request->get('port'),
             'DB_DATABASE' => $request->get('mysql_db'),
             'DB_USERNAME' => $request->get('mysql_user'),
             'DB_PASSWORD' => "'" . $request->get('mysql_pass') . "'",
+            'HAS_INSTALL' => 1,
         ]);
-        Artisan::call('config:cache');
+        Artisan::call('config:clear');
         Artisan::call('migrate');
-        $this->markAsInstall();
-        return redirect()->to('http://' . config('app.url') . '/install-success');
+        return redirect()->route('installed');
     }
 
     /**
@@ -142,8 +142,8 @@ class SettingsController extends Controller
      */
     public function cacheConfig()
     {
-        Artisan::call('config:cache');
-        return redirect()->to('http://' . config('app.url') . '/cache-config-success');
+        Artisan::call('config:clear');
+        return redirect()->route('configged');
     }
 
     /**
@@ -153,17 +153,5 @@ class SettingsController extends Controller
     public function cacheConfigSuccess()
     {
         return view('cache-config-success');
-    }
-
-    /**
-     * Mark as install so any one cannot make change the database once after install
-     */
-    public function markAsInstall()
-    {
-        $env = new DotenvEditor();
-        $env->changeEnv([
-            'HAS_INSTALL' => 1,
-        ]);
-        Artisan::call('config:cache');
     }
 }

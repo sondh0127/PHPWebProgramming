@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
-@section('title')
-Success
+@section('title') Success
 @endsection
 
 @section('content')
@@ -11,5 +9,4 @@ Success
   <h2>Installation has been completed successfully</h2>
   <a href="{{route('register')}}" class="btn btn-success btn-lg">Register As Admin</a>
 </center>
-
 @endsection

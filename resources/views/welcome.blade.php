@@ -1,100 +1,105 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Laravel</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-  <!-- Styles -->
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>My Restaurant Home</title>
+  @include('assets.css')
   <style>
-    html,
-    body {
-      background-color: #fff;
-      color: #636b6f;
-      font-family: 'Nunito', sans-serif;
-      font-weight: 200;
-      height: 100vh;
-      margin: 0;
-    }
+  .badge {
+    font-size: 20px !important;
+  }
 
-    .full-height {
-      height: 100vh;
-    }
-
-    .flex-center {
-      align-items: center;
-      display: flex;
-      justify-content: center;
-    }
-
-    .position-ref {
-      position: relative;
-    }
-
-    .top-right {
-      position: absolute;
-      right: 10px;
-      top: 18px;
-    }
-
-    .content {
-      text-align: center;
-    }
-
-    .title {
-      font-size: 84px;
-    }
-
-    .links>a {
-      color: #636b6f;
-      padding: 0 25px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: .1rem;
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-
-    .m-b-md {
-      margin-bottom: 30px;
-    }
+  .dish {
+    padding-bottom: 25px;
+    border: 1px solid orangered;
+    margin-bottom: 25px;
+    /*margin-right: 1px;*/
+  }
   </style>
 </head>
 
 <body>
-  <div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-    <div class="top-right links">
-      @auth
-      <a href="{{ url('/home') }}">Home</a>
-      @else
-      <a href="{{ route('login') }}">Login</a>
-
-      @if (Route::has('register'))
-      <a href="{{ route('register') }}">Register</a>
-      @endif
-      @endauth
-    </div>
-    @endif
-
-    <div class="content">
-      <div class="title m-b-md">
-        Laravel
+  <!-- Top Bar Start -->
+  <div class="topbar">
+    <!-- LOGO -->
+    <div class="topbar-left">
+      <div class="text-center">
+        <a href="{{ url('/') }}" class="logo">
+          <i class="icon-c-logo my-logo">M</i>
+          <span class="my-logo">My Restaurant</span>
+        </a>
       </div>
+    </div>
 
-      <div class="links">
-        <a href="https://laravel.com/docs">Docs</a>
-        <a href="https://laracasts.com">Laracasts</a>
-        <a href="https://laravel-news.com">News</a>
-        <a href="https://blog.laravel.com">Blog</a>
-        <a href="https://nova.laravel.com">Nova</a>
-        <a href="https://forge.laravel.com">Forge</a>
-        <a href="https://github.com/laravel/laravel">GitHub</a>
+    <!-- Button mobile view to collapse sidebar menu -->
+    <div class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="">
+          @if (Route::has('login'))
+          <ul class="nav navbar-nav hidden-xs pull-right">
+            @if (Auth::check())
+            <li>
+              <a href="{{ url('/home') }}" class="waves-effect waves-light">Home</a>
+            </li>
+            @else
+            <li>
+              <a href="{{ route('login') }}" class="waves-effect waves-light">Login</a>
+            </li>
+            <!-- <li><a href="{{route('register')}}" class="waves-effect waves-light">Join</a></li> -->
+            @endif
+          </ul>
+          @endif
+        </div>
+        <!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+  <!-- Top Bar End -->
+
+  <?php $dishes = \App\Model\Dish::where('status', 1)->get(); ?>
+
+  <div style="margin-top: 70px">
+    <div class="card-box">
+      <center>
+        <h1>Menus</h1>
+      </center>
+      <div class="dishes">
+        <div class="row">
+          @foreach($dishes as $dish)
+          <div class="col-md-6 dish">
+            <div class="col-md-6">
+              <img src="{{\Illuminate\Support\Facades\Storage::disk('s3')->url($dish->thumbnail)}}" alt=""
+                class="img-thumbnail" />
+            </div>
+            <div class="col-md-6">
+              <h3>
+                <u>{{$dish->dish}}</u>
+              </h3>
+              <ul class="list-group">
+                @foreach($dish->dishPrices as $price)
+                <li class="list-group-item">
+                  <span class="badge">{{ config('restaurant.currency.symbol')
+                      }}{{number_format($price->price,2)}}</span>
+                  {{$price->dish_type}}
+                </li>
+                @endforeach
+              </ul>
+            </div>
+            <div class="col-md-12">
+              @foreach($dish->dishImages as $image)
+              <div class="col-md-3">
+                <img src="{{\Illuminate\Support\Facades\Storage::disk('s3')->url($image->image)}}"
+                  class="img-responsive img-thumbnail" alt="" />
+              </div>
+              @endforeach
+            </div>
+          </div>
+          @endforeach
+        </div>
       </div>
     </div>
   </div>

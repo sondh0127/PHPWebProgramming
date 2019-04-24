@@ -48,7 +48,8 @@
         <ul class="nav navbar-nav hidden-xs">
           <li><a href="{{url('/new-order')}}" class="waves-effect waves-light">New Order</a></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shortcut menu <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" role="button"
+              aria-haspopup="true" aria-expanded="false">Shortcut menu <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="{{url('/live-kitchen')}}">Live Kitchen</a></li>
               <li><a href="{{url('/kitchen-stat')}}">Kitchen report</a></li>
@@ -63,7 +64,8 @@
         <ul class="nav navbar-nav hidden-xs">
           <li><a href="{{url('/new-order')}}" class="waves-effect waves-light">New Order</a></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shortcut menu <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" role="button"
+              aria-haspopup="true" aria-expanded="false">Shortcut menu <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="{{url('/live-kitchen')}}">Live Kitchen</a></li>
               <li><a href="{{url('/kitchen-stat')}}">Kitchen report</a></li>
@@ -76,8 +78,11 @@
 
         <ul class="nav navbar-nav navbar-right pull-right">
           <li class="dropdown top-menu-item-xs">
-            <a href="" class="dropdown-toggle profile waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
-              <img src="{{auth()->user()->image ? \Illuminate\Support\Facades\Storage::disk('s3')->url(auth()->user()->image) : asset('img_assets/default-thumbnail.jpg')}}" alt="user-img" class="img-circle"> </a>
+            <a href="" class="dropdown-toggle profile waves-effect waves-light" data-toggle="dropdown"
+              aria-expanded="true">
+              <img
+                src="{{auth()->user()->image ? \Illuminate\Support\Facades\Storage::disk('s3')->url(auth()->user()->image) : asset('img_assets/default-thumbnail.jpg')}}"
+                alt="user-img" class="img-circle"> </a>
             <ul class="dropdown-menu">
               <li><a href="{{url('/profile')}}"><i class="ti-user m-r-10 text-custom"></i> Profile</a>
               </li>
@@ -99,6 +104,10 @@
         </ul>
         @endguest
       </div>
+
+
+
+
       <!--/.nav-collapse -->
     </div>
   </div>
