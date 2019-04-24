@@ -58,12 +58,11 @@ Profile
                     rows="5">{{auth()->user()->role != 1 ? auth()->user()->employee->address : ''}}</textarea>
                 </div>
               </div>
-              @endadmin
+              @endif
               <div class="form-group">
                 <label class="col-md-2 control-label"></label>
                 <div class="col-md-10">
                   <button type="submit" class="ladda-button btn btn-purple" data-style="expand-right">Update Profile
-
                   </button>
                   <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-link">Change Password</a>
                 </div>
@@ -116,9 +115,8 @@ Profile
 $(document).ready(function() {
   $("#updateProfile").on('submit', function(e) {
     e.preventDefault();
-    var formDate = new FormData(this);
-    @if(auth() - > user() - > role == 1)
-    $(this).speedPost('/post-admin-profile', formDate, message = {
+    var formData = new FormData(this);
+    $(this).speedPost('/post-profile', formData, message = {
       success: {
         header: 'Profile Update successfully',
         body: 'Profile updated successfully'
@@ -132,33 +130,16 @@ $(document).ready(function() {
         body: 'Internal server error'
       }
     });
-    @else
-    $(this).speedPost('/post-profile', formDate, message = {
-      success: {
-        header: 'Profile Update successfully',
-        body: 'Profile updated successfully'
-      },
-      error: {
-        header: 'Email address already exist',
-        body: 'Email address found'
-      },
-      warning: {
-        header: 'Internal Server Error',
-        body: 'Internal server error'
-      }
-    });
-    @endif
   });
 
   $("#submitChangePassForm").on('click', function() {
     $("#passForm").submit();
-
   });
 
   $("#passForm").on('submit', function(e) {
     e.preventDefault();
-    var formDate = new FormData(this);
-    $(this).speedPost('/change-password', formDate, message = {
+    var formData = new FormData(this);
+    $(this).speedPost('/change-password', formData, message = {
       success: {
         header: 'Success',
         body: 'Password has been changed successfully'

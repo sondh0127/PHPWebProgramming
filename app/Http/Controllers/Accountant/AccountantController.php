@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Accountant;
 
 use App\Model\OfficeExpanse;
 use App\Model\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Http\Controllers\Controller;
 
 class AccountantController extends Controller
 {

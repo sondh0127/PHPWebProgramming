@@ -24,7 +24,7 @@ Route::get('/cache-config-success', 'SettingsController@cacheConfigSuccess')->na
 Auth::routes();
 
 // Account Disable
-Route::get('/account-disable', 'HomeController@accountDisable')->middleware('inactive.user');
+Route::get('/account-disable', 'UsersController@accountDisable')->middleware('inactive.user');
 
 //Routes only access with authenticated users
 Route::middleware('active.user')->group(function () {
@@ -32,11 +32,18 @@ Route::middleware('active.user')->group(function () {
     // Common route
     Route::get('/home', 'HomeController@index')->name('home');
 
+    //Profile Settings
+    Route::get('/profile', 'UsersController@profileInfo');
+    Route::get('/profile-edit', 'UsersController@profileEdit');
+    Route::post('/post-profile', 'UsersController@profileUpdate');
+    Route::post('/change-password', 'UsersController@changePassword');
+
     // Admin Only
     Route::middleware(['admin'])->group(function () {
         //App Settings
         Route::get('/app-settings', 'SettingsController@setting');
         Route::post('/save-pusher-conf', 'SettingsController@pusherSetting');
+        Route::post('/save-s3-conf', 'SettingsController@s3Setting');
         Route::post('/save-mail-conf', 'SettingsController@mailSetting');
         Route::post('/save-timezone', 'SettingsController@timezoneSetting');
         Route::post('/save-currency', 'SettingsController@currencySetting');
@@ -235,11 +242,4 @@ Route::middleware('active.user')->group(function () {
             Route::get('/waiter-stat/waiter={id}/start={start_date}/end={end_date}', 'WaiterController@showWaiterStat');
         });
     });
-
-    //Profile Settings
-    Route::get('/profile', 'HomeController@profileInfo');
-    Route::get('/profile-edit', 'HomeController@profileEdit');
-    Route::post('/post-profile', 'HomeController@profileUpdate');
-    Route::post('/post-admin-profile', 'HomeController@adminProfileUpdate');
-    Route::post('/change-password', 'HomeController@changePassword');
 });

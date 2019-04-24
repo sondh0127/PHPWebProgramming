@@ -61,7 +61,7 @@
   </div>
 
   <footer class="footer">
-    My Restaurant © 2018. All rights reserved <a href="http://github.com/sonstephendo" target="_blank">ICT Group</a>
+    My Restaurant © 2019. All rights reserved <a href="http://github.com/sonstephendo" target="_blank">ICT K60 Group</a>
   </footer>
 </body>
 

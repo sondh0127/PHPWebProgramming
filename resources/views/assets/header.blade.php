@@ -8,11 +8,6 @@
         <i class="icon-c-logo my-logo">M</i>
         <span class="my-logo">My Restaurant</span>
       </a>
-      <!-- Image Logo here -->
-      {{--<a href="{{url('/')}}" class="logo">--}}
-      {{--<i class="icon-c-logo"> <img src="http://via.placeholder.com/350x150" height="42"/> </i>--}}
-      {{--<span><img src="http://via.placeholder.com/350x150" height="20"/></span>--}}
-      {{--</a>--}}
     </div>
   </div>
 
@@ -81,7 +76,7 @@
             <a href="" class="dropdown-toggle profile waves-effect waves-light" data-toggle="dropdown"
               aria-expanded="true">
               <img
-                src="{{auth()->user()->image ? \Illuminate\Support\Facades\Storage::disk('s3')->url(auth()->user()->image) : asset('img_assets/default-thumbnail.jpg')}}"
+                src="{{ auth()->user()->image ? auth()->user()->photo() : asset('img_assets/default-thumbnail.jpg') }}"
                 alt="user-img" class="img-circle"> </a>
             <ul class="dropdown-menu">
               <li><a href="{{url('/profile')}}"><i class="ti-user m-r-10 text-custom"></i> Profile</a>

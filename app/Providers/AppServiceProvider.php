@@ -36,8 +36,10 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('waiter', $this->roleCheck(4));
     }
 
-    private function roleCheck($role)
+    function roleCheck($role)
     {
-        return auth()->check() && auth()->user()->role() == $role;
+        return function () use($role) {
+            return auth()->check() && auth()->user()->role() == $role;
+        };
     }
 }

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -45,6 +46,11 @@ class User extends Authenticatable
     public function role()
     {
         return $this->role;
+    }
+
+    public function photo()
+    {
+       return Storage::disk('s3')->url($this->image);
     }
 
     public function active()

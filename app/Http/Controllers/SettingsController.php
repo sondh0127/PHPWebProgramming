@@ -80,6 +80,21 @@ class SettingsController extends Controller
         ]);
     }
 
+     /**
+     * Save s3 settings
+     * @param Request $request
+     */
+    public function s3Setting(Request $request)
+    {
+        $env = new DotenvEditor();
+        $env->changeEnv([
+            'AWS_ACCESS_KEY_ID' => $request->get('key'),
+            'AWS_SECRET_ACCESS_KEY' => $request->get('secret'),
+            'AWS_DEFAULT_REGION' => $request->get('region'),
+            'AWS_BUCKET' => $request->get('bucket'),
+        ]);
+    }
+
     /**
      * Save database settings
      * @param Request $request
