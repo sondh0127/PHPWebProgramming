@@ -3,12 +3,7 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use App\Http\Middleware\ActiveUser;
-use App\Http\Middleware\AdminRoleCheck;
-use App\Http\Middleware\InActiveUser;
-use App\Http\Middleware\KitchenRoleCheck;
-use App\Http\Middleware\ManagerRoleCheck;
-use App\Http\Middleware\WaiterRoleCheck;
+
 class Kernel extends HttpKernel
 {
     /**
@@ -66,12 +61,12 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
-        'active.user' => ActiveUser::class,
-        'inactive.user'=>InActiveUser::class,
-        'admin'=>AdminRoleCheck::class,
-        'manager'=>ManagerRoleCheck::class,
-        'kitchen'=>KitchenRoleCheck::class,
-        'waiter'=>WaiterRoleCheck::class,
+        'active.user' => \App\Http\Middleware\UserMiddleware\ActiveUser::class,
+        'inactive.user' => \App\Http\Middleware\UserMiddleware\InActiveUser::class,
+        'admin' => \App\Http\Middleware\UserMiddleware\AdminRoleCheck::class,
+        'manager' => \App\Http\Middleware\UserMiddleware\ManagerRoleCheck::class,
+        'kitchen' => \App\Http\Middleware\UserMiddleware\KitchenRoleCheck::class,
+        'waiter' => \App\Http\Middleware\UserMiddleware\WaiterRoleCheck::class,
     ];
 
     /**

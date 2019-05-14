@@ -100,8 +100,8 @@
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="icon icon-people"></i><span> Employee </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="{{url('/add-employee')}}">Add Employee</a></li>
-                        <li><a href="{{url('/all-employee')}}">All Employee</a></li>
+                        <li><a href="{{url('/employee/create')}}">Add Employee</a></li>
+                        <li><a href="{{url('/employee')}}">All Employee</a></li>
                     </ul>
                 </li>
 

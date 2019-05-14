@@ -26,7 +26,6 @@
         <ul class="nav navbar-nav navbar-right pull-right">
           <li><a href="{{ route('login') }}" class="waves-effect waves-light">Login</a></li>
           @if(\App\User::first())
-
           @else
           <li><a href="{{ route('register') }}" class="waves-effect waves-light">Register Admin</a></li>
           @endif

@@ -11,6 +11,8 @@
 |
  */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', 'HomeController@welcome');
 
 // Install
@@ -24,7 +26,7 @@ Route::get('/cache-config-success', 'SettingsController@cacheConfigSuccess')->na
 Auth::routes();
 
 // Account Disable
-Route::get('/account-disable', 'UsersController@accountDisable')->middleware('inactive.user');
+Route::get('/account-disable', 'HomeController@accountDisable')->middleware('inactive.user');
 
 //Routes only access with authenticated users
 Route::middleware('active.user')->group(function () {
@@ -33,10 +35,10 @@ Route::middleware('active.user')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     //Profile Settings
-    Route::get('/profile', 'UsersController@profileInfo');
-    Route::get('/profile-edit', 'UsersController@profileEdit');
-    Route::post('/post-profile', 'UsersController@profileUpdate');
-    Route::post('/change-password', 'UsersController@changePassword');
+    Route::get('/profile', 'UserController@profileInfo');
+    Route::get('/profile-edit', 'UserController@profileEdit');
+    Route::post('/post-profile', 'UserController@profileUpdate');
+    Route::post('/change-password', 'UserController@changePassword');
 
     // Admin Only
     Route::middleware(['admin'])->group(function () {
@@ -52,15 +54,12 @@ Route::middleware('active.user')->group(function () {
 
     // Admin & Shop Manager Only
     Route::middleware(['manager'])->group(function () {
-
         // User Management
+        Route::resource('employee', 'UserController');
+        Route::post('/update-employee/{id}', 'UserController@updateEmployee');
+
         Route::namespace('Employee')->group(function () {
-            Route::get('/add-employee', 'EmployeeController@addEmployee');
-            Route::get('/all-employee', 'EmployeeController@allEmployees');
-            Route::get('/edit-employee/{id}', 'EmployeeController@editEmployee');
             Route::get('/delete-employee/{id}', 'EmployeeController@deleteEmployee');
-            Route::post('/save-employee', 'EmployeeController@saveEmployee');
-            Route::post('/update-employee/{id}', 'EmployeeController@updateEmployee');
         });
 
         Route::namespace('Stock')->group(function () {

@@ -26,4 +26,13 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    /**
+     * View account disable page if user account is disable
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function accountDisable()
+    {
+        return view('other.disable-account');
+    }
 }

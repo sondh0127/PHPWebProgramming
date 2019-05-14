@@ -12,7 +12,6 @@ use App\Model\Product;
 use App\Model\ProductType;
 use App\Model\Purse;
 use App\Model\PursesPayment;
-// use App\Model\Stock;
 use App\Model\Recipe;
 use App\Model\Supplier;
 use App\Model\Table;
@@ -88,7 +87,8 @@ class EmployeeController extends Controller
         $user_in_unit = Unit::where('user_id', $id)->first();
         $user_in_employee = Employee::where('user_id', $id)->first();
 
-        if ($user_in_order || $user_in_dish || $user_id_product || $user_in_product_type || $user_in_purses
+        if (
+            $user_in_order || $user_in_dish || $user_id_product || $user_in_product_type || $user_in_purses
             || $user_in_purses_payment || $user_in_recipe || $user_in_supplier || $user_in_table
             || $user_in_unit
         ) {
@@ -100,7 +100,6 @@ class EmployeeController extends Controller
                 return redirect()->back()->with('delete_success', 'Employee has been deleted successfully');
             }
         }
-
     }
 
     /**
@@ -150,38 +149,25 @@ class EmployeeController extends Controller
     public function updateEmployee(UpdateEmployee $request, $id)
     {
         $this->validate($request, [
-            'email' => Rule::unique('employees')->ignore($id, 'id'),
-            // 'email'   =>   Rule::unique('users')->ignore($id + 1, 'id'),
+            'email' => Rule::unique('users')->ignore($id, 'id'),
         ]);
-
-        $employee = Employee::findOrFail($id);
-        $employee->name = $request->get('name');
-        $employee->phone = $request->get('phone');
-        $employee->email = $request->get('email');
-        $employee->address = $request->get('address');
+        $data = $request->all();
+        $employee = User::findOrFail($id);
+        $employee->fill($data);
+        $employee->active = $request->get('status') == 'on' ? 1 : 0;
+        if ($request->get('password') != "") {
+            $employee->password = Hash::make($request->get('password'));
+        }
+        if ($request->hasFile('thumbnail')) {
+            $image = $request->file('thumbnail');
+            $imageFileName = time() . '.' . $image->getClientOriginalExtension();
+            $filePath = 'employee/' . $imageFileName;
+            Storage::disk('s3')->put($filePath, file_get_contents($image), 'public');
+            $employee->image = $filePath;
+        }
         if ($employee->save()) {
-            $user = User::find($employee->user->id);
-            $user->name = $request->get('name');
-            $user->email = $request->get('email');
-            $user->active = $request->get('status') == 'on' ? 1 : 0;
-            $user->role = $request->get('role');
-            if ($request->get('password') != "") {
-                $user->password = Hash::make($request->get('password'));
-            }
-            if ($request->hasFile('thumbnail')) {
-                // $user->image = $request->file('thumbnail')
-                //     ->move('uploads/employee', rand(100000, 900000) . '.' . $request->thumbnail->extension());
-
-                $image = $request->file('thumbnail');
-                $imageFileName = time() . '.' . $image->getClientOriginalExtension();
-                $filePath = 'employee/' . $imageFileName;
-                Storage::disk('s3')->put($filePath, file_get_contents($image), 'public');
-                $user->image = $filePath;
-            }
-            if ($user->save()) {
-                // Mail::to($user->email)->send(new EmployeRegister($user->email,$request->get('password')));
-                return response()->json('Ok', 200);
-            }
+            // Mail::to($user->email)->send(new EmployeRegister($user->email,$request->get('password')));
+            return response()->json('Ok', 200);
         }
     }
 }

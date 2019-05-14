@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
+use App\Model\Order;
 
 class User extends Authenticatable
 {
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role',
+        'name', 'email', 'role', 'phone', 'address',
     ];
 
     /**
@@ -56,11 +57,6 @@ class User extends Authenticatable
     public function active()
     {
         return $this->active;
-    }
-
-    public function employee()
-    {
-        return $this->hasOne(Employee::class);
     }
 
     public function waiterOrders()

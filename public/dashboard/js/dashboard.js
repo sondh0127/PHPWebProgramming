@@ -22,10 +22,10 @@ $(document).ready(function(e) {
         }
     };
 
-    $.fn.speedPost = function(url, data, messages, formId) {
+    $.fn.speedPost = function(url, data, messages, formId, isPut) {
         $.ajax({
             url: url,
-            type: 'POST',
+            type: isPut ? 'PUT' : 'POST',
             data: data,
             contentType: false,
             cache: false,

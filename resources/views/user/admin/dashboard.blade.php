@@ -177,13 +177,10 @@ $(document).ready(function() {
     // the chart.
     data:
 
-      [@foreach($kitchen as $k) {
+      [
+        @foreach($kitchen as $k) {
           year: '{{$k->name}}' + '({{count($k->kitchenOrderToday)}})',
-          value: {
-            {
-              count($k - > kitchenOrderToday)
-            }
-          }
+          value: {{count($k -> kitchenOrderToday)}}
         },
         @endforeach
       ],

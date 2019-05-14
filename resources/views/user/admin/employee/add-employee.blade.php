@@ -9,7 +9,7 @@ Add Employee
 <div class="row">
   <div class="col-sm-12">
     <div class="btn-group pull-right m-t-15">
-      <a href="{{url('/all-employee')}}" class="btn btn-default waves-effect">All Employee <span
+      <a href="{{url('/employee')}}" class="btn btn-default waves-effect">All Employee <span
           class="m-l-5"></span></a>
     </div>
 
@@ -72,7 +72,7 @@ Add Employee
             <div class="form-group">
               <label class="col-md-2 control-label">Retype Password</label>
               <div class="col-md-8">
-                <input type="password" placeholder="Retype Password" class="form-control" value=""
+                <input type="password" placeholder="Retype Password" name="re-password" class="form-control" value=""
                   data-parsley-equalto="#pass1" required>
               </div>
             </div>
@@ -131,9 +131,9 @@ $(document).ready(function(e) {
   addEmployeeForm.on('submit', function(e) {
     e.preventDefault();
     var formData = new FormData(this);
-    $(this).speedPost('/save-employee', formData, message = {
+    $(this).speedPost('/employee', formData, message = {
       success: {
-        header: 'Employee Save successfully',
+        header: 'Employee save successfully',
         body: 'Employee saved'
       },
       error: {
