@@ -134,7 +134,7 @@ class EmployeeController extends Controller
             $employee->user_id = $user->id;
             if ($employee->save()) {
                 // exception here
-                // Mail::to($user->email)->send(new EmployeRegister($user->email,$request->get('password')));
+                // Mail::to($user->email)->send(new UserRegisterMail($user->email,$request->get('password')));
                 return response()->json('Ok', 200);
             }
         }
@@ -166,7 +166,7 @@ class EmployeeController extends Controller
             $employee->image = $filePath;
         }
         if ($employee->save()) {
-            // Mail::to($user->email)->send(new EmployeRegister($user->email,$request->get('password')));
+            // Mail::to($user->email)->send(new UserRegisterMail($user->email,$request->get('password')));
             return response()->json('Ok', 200);
         }
     }

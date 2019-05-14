@@ -133,7 +133,7 @@ class UserController extends Controller
             $user->image = $filePath;
         }
         if ($user->save()) {
-            // Mail::to($user->email)->send(new EmployeRegister($user->email,$request->get('password')));
+            // Mail::to($user->email)->send(new UserRegisterMail($user->email,$request->get('password')));
             return response()->json('Ok', 200);
         }
     }
@@ -181,7 +181,7 @@ class UserController extends Controller
         }
 
         if ($employee->save()) {
-            // Mail::to($user->email)->send(new EmployeRegister($user->email,$request->get('password')));
+            // Mail::to($user->email)->send(new UserRegisterMail($user->email,$request->get('password')));
             return response()->json('Ok', 200);
         }
     }
@@ -213,7 +213,7 @@ class UserController extends Controller
             $employee->image = $filePath;
         }
         if ($employee->save()) {
-            // Mail::to($user->email)->send(new EmployeRegister($user->email,$request->get('password')));
+            // Mail::to($user->email)->send(new UserRegisterMail($user->email,$request->get('password')));
             return response()->json('Ok', 200);
         }
     }
