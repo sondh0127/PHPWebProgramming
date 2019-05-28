@@ -34,7 +34,7 @@ Route::middleware('active.user')->group(function () {
     // Common route
     Route::get('/home', 'HomeController@index')->name('home');
 
-    //Profile Settings
+    //Profile Settingsprofile
     Route::get('/profile', 'UserController@profileInfo');
     Route::get('/profile-edit', 'UserController@profileEdit');
     Route::post('/post-profile', 'UserController@profileUpdate');
